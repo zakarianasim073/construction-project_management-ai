@@ -1,0 +1,23 @@
+services:
+  - type: web_service
+    name: buildtrack-backend
+    plan: starter
+    repo: https://github.com/zakarianasim073/Project_monitoring-ai
+    rootDir: backend
+    branch: main
+    env: node
+    envVars:
+      - name: PORT
+        value: "10000"
+      - name: NODE_ENV
+        value: production
+      - name: MONGO_URI
+        sync: false
+      - name: JWT_SECRET
+        sync: false
+      - name: GEMINI_API_KEY
+        sync: false
+    buildCommand: npm install && npm run build
+    startCommand: node dist/server.js
+    healthCheckPath: /health
+    autoDeploy: true
