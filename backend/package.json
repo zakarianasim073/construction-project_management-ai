@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "postinstall": "npm run build || true"
+    "start": "npx ts-node src/server.ts"
+    ""postinstall": "npx tsc --skipLibCheck || true"
   },
   "dependencies": {
     "express": "^4.19.2",
