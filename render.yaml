@@ -1,9 +1,9 @@
 services:
   - type: web_service
-    name: buildtrack-backend
-    plan: starter
-    repo: https://github.com/zakarianasim073/Project_monitoring-ai
-    rootDir: backend
+    name: buildtrack-fullstack
+    plan: free
+    repo: https://github.com/zakarianasim073/construction-project_management-ai
+    rootDir: .
     branch: main
     env: node
     envVars:
@@ -17,7 +17,7 @@ services:
         sync: false
       - name: GEMINI_API_KEY
         sync: false
-    buildCommand: npm install && npm run build
-    startCommand: node dist/server.js
+    buildCommand: npm install && npm run build-all
+    startCommand: npm start
     healthCheckPath: /health
     autoDeploy: true

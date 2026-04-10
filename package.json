@@ -1,0 +1,9 @@
+{
+  "name": "buildtrack-fullstack",
+  "version": "1.0.0",
+  "scripts": {
+    "install-all": "cd backend && npm install && cd ../frontend && npm install",
+    "build-all": "npm run install-all && cd backend && npm run build && cd ../frontend && npm run build",
+    "start": "cd backend && npm start"
+  }
+}

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import { connectDB } from './config/db';
 import authRoutes from './routes/auth';
 import projectRoutes from './routes/projects';
@@ -9,21 +10,28 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: ['http://localhost:5173', 'https://project-monitoring-sigma.vercel.app'],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
+
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-connectDB();
+// Serve Static Frontend Assets
+const frontendPath = path.join(__dirname, '../../frontend/dist');
+app.use(express.static(frontendPath));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectRoutes);
+// Catch-all route for SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
+connectDB();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

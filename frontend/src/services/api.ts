@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const API_BASE = import.meta.env.PROD
+  ? '/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:5000/api');
 
 const headers = () => ({
   'Content-Type': 'application/json',
@@ -53,6 +55,4 @@ export const api = {
       headers: headers(),
       body: JSON.stringify(doc),
     }).then(r => r.json()),
-
-  // Add more as needed (onApplySuggestion, etc.)
 };

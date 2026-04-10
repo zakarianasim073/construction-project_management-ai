@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UploadCloud, Loader2, Sparkles, CheckCircle2 } from 'lucide-react';
-import { api } from '../services/api';
+import { api, API_BASE } from '../services/api';
 
 const SmartUploadModal = ({ projectId, isOpen, onClose, onSuccess }: any) => {
   const [file, setFile] = useState<File | null>(null);
@@ -14,7 +14,7 @@ const SmartUploadModal = ({ projectId, isOpen, onClose, onSuccess }: any) => {
     // In real app: first upload file to backend, get filename, then call smart-upload
     const filename = file.name;
 
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/projects/${projectId}/documents/smart-upload`, {
+    const res = await fetch(`${API_BASE}/projects/${projectId}/documents/smart-upload`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
